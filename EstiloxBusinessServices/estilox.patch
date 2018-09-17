@@ -1,0 +1,376 @@
+### Eclipse Workspace Patch 1.0
+#P EstiloxBusinessServices
+diff --git src/main/java/com/estilox/customer/model/ProductCategory.java src/main/java/com/estilox/customer/model/ProductCategory.java
+new file mode 100644
+index 0000000..74d3f92
+--- /dev/null
++++ src/main/java/com/estilox/customer/model/ProductCategory.java
+@@ -0,0 +1,79 @@
++package com.estilox.customer.model;
++
++import java.io.Serializable;
++import java.util.Set;
++
++import javax.persistence.CascadeType;
++import javax.persistence.Column;
++import javax.persistence.Entity;
++import javax.persistence.GeneratedValue;
++import javax.persistence.GenerationType;
++import javax.persistence.Id;
++import javax.persistence.OneToMany;
++import javax.persistence.Table;
++
++/**
++ * 	@author Kamesh
++**/
++@Entity
++@Table(name="DOC_PRODUCT_CATEGORY")
++public class ProductCategory implements Serializable{
++	private static final long serialVersionUID = 1L;
++	
++	@Id
++	@GeneratedValue(strategy=GenerationType.IDENTITY)
++	@Column(name="CATEGORY_ID",nullable=false,updatable=false)
++	private Long categoryId;
++	
++	@Column(name="CATEGORY_NAME")
++	private String categoryName;
++	
++	@Column(name="DESCRIPTION")
++	private String categoryDescription;
++	
++	@Column(name="ACTIVE")
++	private boolean active;
++	
++	private Set<Products> products;
++
++	public Long getCategoryId() {
++		return categoryId;
++	}
++
++	public void setCategoryId(Long categoryId) {
++		this.categoryId = categoryId;
++	}
++
++	public String getCategoryName() {
++		return categoryName;
++	}
++
++	public void setCategoryName(String categoryName) {
++		this.categoryName = categoryName;
++	}
++
++	public String getCategoryDescription() {
++		return categoryDescription;
++	}
++
++	public void setCategoryDescription(String categoryDescription) {
++		this.categoryDescription = categoryDescription;
++	}
++
++	public boolean isActive() {
++		return active;
++	}
++
++	public void setActive(boolean active) {
++		this.active = active;
++	}
++
++	@OneToMany(mappedBy="productCategory",cascade=CascadeType.ALL)
++	public Set<Products> getProducts() {
++		return products;
++	}
++
++	public void setProducts(Set<Products> products) {
++		this.products = products;
++	}
++}
+\ No newline at end of file
+diff --git src/main/java/com/estilox/customer/model/ProductColourList.java src/main/java/com/estilox/customer/model/ProductColourList.java
+new file mode 100644
+index 0000000..4c38032
+--- /dev/null
++++ src/main/java/com/estilox/customer/model/ProductColourList.java
+@@ -0,0 +1,11 @@
++package com.estilox.customer.model;
++
++import java.io.Serializable;
++
++public class ProductColourList implements Serializable{
++	private Long colourId;
++	private String colour;
++	private String colourDescription;
++	private String colourImagepath;
++	private boolean active;
++}
+diff --git src/main/java/com/estilox/customer/model/ProductMappedSizeColour.java src/main/java/com/estilox/customer/model/ProductMappedSizeColour.java
+new file mode 100644
+index 0000000..eb3393a
+--- /dev/null
++++ src/main/java/com/estilox/customer/model/ProductMappedSizeColour.java
+@@ -0,0 +1,10 @@
++package com.estilox.customer.model;
++
++import java.io.Serializable;
++import java.util.List;
++
++public class ProductMappedSizeColour implements Serializable{
++	private Long sizeMappedId;
++	private ProductSizeList productSizeList;
++	private ProductColourList productColourList;
++}
+\ No newline at end of file
+diff --git src/main/java/com/estilox/customer/model/ProductPictures.java src/main/java/com/estilox/customer/model/ProductPictures.java
+new file mode 100644
+index 0000000..d8e6643
+--- /dev/null
++++ src/main/java/com/estilox/customer/model/ProductPictures.java
+@@ -0,0 +1,54 @@
++package com.estilox.customer.model;
++
++import java.io.Serializable;
++import java.util.Date;
++
++import javax.persistence.Column;
++import javax.persistence.Entity;
++import javax.persistence.GeneratedValue;
++import javax.persistence.GenerationType;
++import javax.persistence.Id;
++import javax.persistence.JoinColumn;
++import javax.persistence.ManyToOne;
++import javax.persistence.Table;
++import javax.persistence.Temporal;
++import javax.persistence.TemporalType;
++
++import org.springframework.data.annotation.CreatedDate;
++import org.springframework.data.annotation.LastModifiedDate;
++
++
++/**
++ *	@author Kamesh 
++**/
++@Entity
++@Table(name="DOC_PROODUCT_IMAGES")
++public class ProductPictures implements Serializable{
++	
++	private static final long serialVersionUID = 287469144761828211L;
++	
++	@Id
++	@GeneratedValue(strategy=GenerationType.IDENTITY)
++	@Column(name="PRODUCT_IMAGE_ID",nullable=false,updatable=false)
++	private Long productImageId;
++	
++	@Column(name="IMAGE_PATH")
++	private String path;
++	
++	@Column(name="VISIBLE")
++	private boolean visible;
++	
++	@Column(name="CREATED_DATE",nullable=false,updatable=false)
++	@Temporal(TemporalType.TIMESTAMP)
++	@CreatedDate
++	private Date createdDate;
++	
++	@Column(name="UPDATED_DATE",nullable=false)
++	@Temporal(TemporalType.TIMESTAMP)
++	@LastModifiedDate
++	private Date updatedDate;
++	
++	@ManyToOne
++	@JoinColumn(name="PRODUCT_ID")
++	private Products products;
++}
+diff --git src/main/java/com/estilox/customer/model/ProductSizeList.java src/main/java/com/estilox/customer/model/ProductSizeList.java
+new file mode 100644
+index 0000000..160909e
+--- /dev/null
++++ src/main/java/com/estilox/customer/model/ProductSizeList.java
+@@ -0,0 +1,10 @@
++package com.estilox.customer.model;
++
++import java.io.Serializable;
++
++public class ProductSizeList implements Serializable{
++	private Long sizeId;
++	private char size;
++	private String sizeDescription;
++	private boolean active;
++}
+diff --git src/main/java/com/estilox/customer/model/Products.java src/main/java/com/estilox/customer/model/Products.java
+new file mode 100644
+index 0000000..1d13832
+--- /dev/null
++++ src/main/java/com/estilox/customer/model/Products.java
+@@ -0,0 +1,172 @@
++package com.estilox.customer.model;
++
++import java.io.Serializable;
++import java.util.Date;
++import java.util.Set;
++
++import javax.persistence.CascadeType;
++import javax.persistence.Column;
++import javax.persistence.Entity;
++import javax.persistence.GeneratedValue;
++import javax.persistence.GenerationType;
++import javax.persistence.Id;
++import javax.persistence.JoinColumn;
++import javax.persistence.ManyToOne;
++import javax.persistence.OneToMany;
++import javax.persistence.Table;
++import javax.persistence.Temporal;
++import javax.persistence.TemporalType;
++
++import org.springframework.data.annotation.CreatedDate;
++import org.springframework.data.annotation.LastModifiedDate;
++
++/**
++ * @author Kamesh
++ * 
++ */
++@Entity
++@Table(name="DOC_PRODUCTS")
++public class Products implements Serializable{
++
++	private static final long serialVersionUID = 1L;
++	
++	@Id
++	@GeneratedValue(strategy=GenerationType.IDENTITY)
++	@Column(name="PRODUCT_ID",nullable=false,updatable=false)
++	private Long id;
++	
++	@Column(name="SKU")
++	private String sku;
++	
++	@Column(name="IDSKU")
++	private String idSku;
++	
++	@ManyToOne
++	@JoinColumn(name="CATEGORY_ID")
++	private ProductCategory productCategory;
++	
++	@Column(name="PRODUCT_NAME")
++	private String productName;
++	
++	@Column(name="PRODUCT_DESCRIPTION")
++	private String productDescription;
++	
++	@Column(name="PRODUCT_STATUS")
++	private boolean productStatus;
++	
++	@Column(name="REGULAR_PRICE")
++	private Integer regularPrice;
++	
++	@Column(name="DISCOUNT_PRICE")
++	private Integer discountPrice;
++	
++	@Column(name="QUANTITY")
++	private Integer quantity;
++	
++	@Column(name="TAXABLE")
++	private boolean taxable;
++	
++	@Column(name="INSERTED_DATE",nullable=false,updatable=false)
++	@Temporal(TemporalType.TIMESTAMP)
++	@CreatedDate
++	private Date insertedAt;
++	
++	@Column(name="UPDATED_DATE",nullable=false)
++	@Temporal(TemporalType.TIMESTAMP)
++	@LastModifiedDate
++	private Date updatedAt;
++	
++	//private Set<ProductMappedSizeColour> colourSize;
++	private Set<ProductPictures> productPictures;
++	public Long getId() {
++		return id;
++	}
++	public void setId(Long id) {
++		this.id = id;
++	}
++	public String getSku() {
++		return sku;
++	}
++	public void setSku(String sku) {
++		this.sku = sku;
++	}
++	public String getIdSku() {
++		return idSku;
++	}
++	public void setIdSku(String idSku) {
++		this.idSku = idSku;
++	}
++	public ProductCategory getProductCategory() {
++		return productCategory;
++	}
++	public void setProductCategory(ProductCategory productCategory) {
++		this.productCategory = productCategory;
++	}
++	public String getProductName() {
++		return productName;
++	}
++	public void setProductName(String productName) {
++		this.productName = productName;
++	}
++	public String getProductDescription() {
++		return productDescription;
++	}
++	public void setProductDescription(String productDescription) {
++		this.productDescription = productDescription;
++	}
++	public boolean isProductStatus() {
++		return productStatus;
++	}
++	public void setProductStatus(boolean productStatus) {
++		this.productStatus = productStatus;
++	}
++	public Integer getRegularPrice() {
++		return regularPrice;
++	}
++	public void setRegularPrice(Integer regularPrice) {
++		this.regularPrice = regularPrice;
++	}
++	public Integer getDiscountPrice() {
++		return discountPrice;
++	}
++	public void setDiscountPrice(Integer discountPrice) {
++		this.discountPrice = discountPrice;
++	}
++	public Integer getQuantity() {
++		return quantity;
++	}
++	public void setQuantity(Integer quantity) {
++		this.quantity = quantity;
++	}
++	public boolean isTaxable() {
++		return taxable;
++	}
++	public void setTaxable(boolean taxable) {
++		this.taxable = taxable;
++	}
++	public Date getInsertedAt() {
++		return insertedAt;
++	}
++	public void setInsertedAt(Date insertedAt) {
++		this.insertedAt = insertedAt;
++	}
++	public Date getUpdatedAt() {
++		return updatedAt;
++	}
++	public void setUpdatedAt(Date updatedAt) {
++		this.updatedAt = updatedAt;
++	}
++	/*public Set<ProductMappedSizeColour> getColourSize() {
++		return colourSize;
++	}
++	public void setColourSize(Set<ProductMappedSizeColour> colourSize) {
++		this.colourSize = colourSize;
++	}*/
++	@OneToMany(mappedBy="products",cascade=CascadeType.ALL)
++	public Set<ProductPictures> getProductPictures() {
++		return productPictures;
++	}
++	public void setProductPictures(Set<ProductPictures> productPictures) {
++		this.productPictures = productPictures;
++	}
++}
