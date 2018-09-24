@@ -22,7 +22,7 @@ import org.springframework.data.annotation.LastModifiedDate;
  *	@author Kamesh 
 **/
 @Entity
-@Table(name="DOC_PROODUCT_IMAGES")
+@Table(name="DOC_PRODUCT_IMAGES")
 public class ProductPictures implements Serializable{
 	
 	private static final long serialVersionUID = 287469144761828211L;
@@ -51,4 +51,52 @@ public class ProductPictures implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="PRODUCT_ID")
 	private Products products;
+
+	public Long getProductImageId() {
+		return productImageId;
+	}
+
+	public void setProductImageId(Long productImageId) {
+		this.productImageId = productImageId;
+	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public boolean isVisible() {
+		return visible;
+	}
+
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
+	public Date getUpdatedDate() {
+		return updatedDate;
+	}
+
+	public void setUpdatedDate(Date updatedDate) {
+		this.updatedDate = updatedDate;
+	}
+
+	public Products getProducts() {
+		return products;
+	}
+
+	public void setProducts(Products products) {
+		this.products = products;
+	}
 }

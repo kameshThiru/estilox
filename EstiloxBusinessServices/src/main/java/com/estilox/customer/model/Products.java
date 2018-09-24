@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -76,8 +75,18 @@ public class Products implements Serializable{
 	@LastModifiedDate
 	private Date updatedAt;
 	
-	//private Set<ProductMappedSizeColour> colourSize;
+	@OneToMany
+	@JoinColumn(name="PRODUCT_ID")
 	private Set<ProductPictures> productPictures;
+	
+	@OneToMany
+	@JoinColumn(name="PRODUCT_ID")
+	private Set<ProductAttributesMapping> productAttributesMappings;
+	
+	@ManyToOne
+	@JoinColumn(name="GENDER_ID")
+	private ProductsGender productsGender;
+	
 	public Long getId() {
 		return id;
 	}
@@ -156,17 +165,22 @@ public class Products implements Serializable{
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
-	/*public Set<ProductMappedSizeColour> getColourSize() {
-		return colourSize;
-	}
-	public void setColourSize(Set<ProductMappedSizeColour> colourSize) {
-		this.colourSize = colourSize;
-	}*/
-	@OneToMany(mappedBy="products",cascade=CascadeType.ALL)
 	public Set<ProductPictures> getProductPictures() {
 		return productPictures;
 	}
 	public void setProductPictures(Set<ProductPictures> productPictures) {
 		this.productPictures = productPictures;
+	}
+	public Set<ProductAttributesMapping> getProductAttributesMappings() {
+		return productAttributesMappings;
+	}
+	public void setProductAttributesMappings(Set<ProductAttributesMapping> productAttributesMappings) {
+		this.productAttributesMappings = productAttributesMappings;
+	}
+	public ProductsGender getProductsGender() {
+		return productsGender;
+	}
+	public void setProductsGender(ProductsGender productsGender) {
+		this.productsGender = productsGender;
 	}
 }
