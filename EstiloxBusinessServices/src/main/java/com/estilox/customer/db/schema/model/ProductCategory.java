@@ -1,4 +1,4 @@
-package com.estilox.customer.model;
+package com.estilox.customer.db.schema.model;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -38,7 +38,7 @@ public class ProductCategory implements Serializable{
 	
 	@OneToMany
 	@JoinColumn(name="CATEGORY_ID")
-	private Set<Products> products;
+	private Set<ProductSubCategory> productSubCategory;
 
 	public Long getCategoryId() {
 		return categoryId;
@@ -72,12 +72,12 @@ public class ProductCategory implements Serializable{
 		this.active = active;
 	}
 
-	@OneToMany(mappedBy="productCategory",cascade=CascadeType.ALL)
-	public Set<Products> getProducts() {
-		return products;
+	public Set<ProductSubCategory> getProductSubCategory() {
+		return productSubCategory;
 	}
 
-	public void setProducts(Set<Products> products) {
-		this.products = products;
+	public void setProductSubCategory(Set<ProductSubCategory> productSubCategory) {
+		this.productSubCategory = productSubCategory;
 	}
+
 }

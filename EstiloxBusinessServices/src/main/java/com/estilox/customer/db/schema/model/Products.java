@@ -1,4 +1,4 @@
-package com.estilox.customer.model;
+package com.estilox.customer.db.schema.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -41,8 +41,8 @@ public class Products implements Serializable{
 	private String idSku;
 	
 	@ManyToOne
-	@JoinColumn(name="CATEGORY_ID")
-	private ProductCategory productCategory;
+	@JoinColumn(name="SUB_CATEGORY_ID")
+	private ProductSubCategory productSubCategory;
 	
 	@Column(name="PRODUCT_NAME")
 	private String productName;
@@ -83,10 +83,6 @@ public class Products implements Serializable{
 	@JoinColumn(name="PRODUCT_ID")
 	private Set<ProductAttributesMapping> productAttributesMappings;
 	
-	@ManyToOne
-	@JoinColumn(name="GENDER_ID")
-	private ProductsGender productsGender;
-	
 	public Long getId() {
 		return id;
 	}
@@ -105,11 +101,11 @@ public class Products implements Serializable{
 	public void setIdSku(String idSku) {
 		this.idSku = idSku;
 	}
-	public ProductCategory getProductCategory() {
-		return productCategory;
+	public ProductSubCategory getProductSubCategory() {
+		return productSubCategory;
 	}
-	public void setProductCategory(ProductCategory productCategory) {
-		this.productCategory = productCategory;
+	public void setProductSubCategory(ProductSubCategory productSubCategory) {
+		this.productSubCategory = productSubCategory;
 	}
 	public String getProductName() {
 		return productName;
@@ -176,11 +172,5 @@ public class Products implements Serializable{
 	}
 	public void setProductAttributesMappings(Set<ProductAttributesMapping> productAttributesMappings) {
 		this.productAttributesMappings = productAttributesMappings;
-	}
-	public ProductsGender getProductsGender() {
-		return productsGender;
-	}
-	public void setProductsGender(ProductsGender productsGender) {
-		this.productsGender = productsGender;
 	}
 }
