@@ -1,4 +1,4 @@
-package com.estilox.customer.model;
+package com.estilox.customer.db.schema.model;
 
 import java.io.Serializable;
 
