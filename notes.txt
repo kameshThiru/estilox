@@ -8,3 +8,8 @@ WebService:
 https://www.djamware.com/post/5b87894280aca74669894414/angular-6-httpclient-consume-restful-api-example
 https://offering.solutions/blog/articles/2016/02/01/consuming-a-rest-api-with-angular-http-service-in-typescript/
 https://medium.com/codingthesmartway-com-blog/angular-4-3-httpclient-accessing-rest-web-services-with-angular-2305b8fd654b
+
+
+
+
+https://www.youtube.com/watch?v=xgc1vnEcPCw
