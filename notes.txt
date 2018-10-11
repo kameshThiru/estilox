@@ -2,6 +2,7 @@ Image
 --------------------------------
 https://www.c-sharpcorner.com/blogs/add-and-remove-multiple-images-in-angular
 https://stackblitz.com/edit/angular-multi-file-upload-preview?file=app%2Fapp.component.html
+https://grokonez.com/spring-framework/spring-boot/angular-4-uploadget-multipartfile-tofrom-spring-boot-server
 
 
 WebService:
