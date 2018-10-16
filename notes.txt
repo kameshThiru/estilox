@@ -16,3 +16,8 @@ https://medium.com/codingthesmartway-com-blog/angular-4-3-httpclient-accessing-r
 
 https://www.youtube.com/watch?v=xgc1vnEcPCw
 https://ng-bootstrap.github.io/#/components/tabset/examples
+
+
+Template:
+---------------------------------
+https://lemonstand.com/theme-demo?theme=urban-essence
