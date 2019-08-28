@@ -43,5 +43,6 @@ http://myembeddedlinux.blogspot.com/2017/11/host-django-app-in-apache-windows.ht
  
 Test
  
+Test for checkout
 
  
