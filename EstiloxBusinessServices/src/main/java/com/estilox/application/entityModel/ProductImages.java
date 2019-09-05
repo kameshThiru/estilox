@@ -1,4 +1,4 @@
-package com.estilox.application.product;
+package com.estilox.application.entityModel;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -32,6 +32,9 @@ public class ProductImages implements Serializable{
 	@Column(name="PRODUCT_IMAGE_ID",nullable=false,updatable=false)
 	private Long productImageId;
 	
+	@Column(name="FOLDER_NAME")
+	private String folderName;
+	
 	@Column(name="IMAGE_PATH")
 	private String path;
 	
@@ -58,6 +61,14 @@ public class ProductImages implements Serializable{
 
 	public void setProductImageId(Long productImageId) {
 		this.productImageId = productImageId;
+	}
+
+	public String getFolderName() {
+		return folderName;
+	}
+
+	public void setFolderName(String folderName) {
+		this.folderName = folderName;
 	}
 
 	public String getPath() {

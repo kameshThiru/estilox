@@ -1,4 +1,4 @@
-package com.estilox.application.product;
+package com.estilox.application.entityModel;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

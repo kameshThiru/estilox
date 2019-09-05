@@ -1,4 +1,4 @@
-package com.estilox.application.product;
+package com.estilox.application.entityModel;
 
 import java.io.Serializable;
 import java.util.Set;
@@ -6,6 +6,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.estilox.application.resolver.EntityIdResolver;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -21,7 +23,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 **/
 @Entity
 @Table(name="DOC_PRODUCT_CATEGORY")
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,
+					property="id",resolver=EntityIdResolver.class,scope=ProductCategory.class)
 public class ProductCategory implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -39,7 +42,7 @@ public class ProductCategory implements Serializable{
 	@Column(name="ACTIVE")
 	private boolean active;
 	
-	@OneToMany(cascade=CascadeType.ALL)
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
 	@JoinColumn(name="CATEGORY_ID")
 	private Set<ProductSubCategory> productSubCategory;
 

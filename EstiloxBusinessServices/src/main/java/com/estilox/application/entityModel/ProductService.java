@@ -1,4 +1,4 @@
-package com.estilox.application.product;
+package com.estilox.application.entityModel;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -68,6 +68,8 @@ public class ProductService {
 	
 	public Set<ProductImages> saveProductImage(MultipartFile[] filesList,Products products) {
 		String fileName = null;
+		String folderName = null;
+		String productName = null;
 		int i = 0;
 		Set<ProductImages> productImagesList = new HashSet<ProductImages>();
 		for(MultipartFile file : filesList) {
@@ -79,9 +81,12 @@ public class ProductService {
 				if (!dir.exists()) {
 					dir.mkdirs();
 				}
-				fileName = products.getProductName()+"_"+System.currentTimeMillis()+"_"+i+".jpeg";
+				productName = products.getProductName();
+				folderName = productName.replace(" ", "_");
+				fileName = folderName+"_"+System.currentTimeMillis()+"_"+i+".jpeg";
 				productImages.setVisible(true);
 				productImages.setPath(fileName);
+				productImages.setFolderName(folderName);
 				productImages.setProducts(products);
 				productImagesList.add(productImages);
 				productImages.setCreatedDate(new Date());
@@ -132,6 +137,21 @@ public class ProductService {
 		return true;
 		else
 		return false;
+	}
+
+	public List<Products> getProductByCategoryName(String categoryName) {
+		List<Products> productList = new ArrayList<Products>();
+		ProductCategory productCategory = productCategoryRepository.getProductCategoryByName(categoryName);
+		if(productCategory != null && productCategory.getProductSubCategory() != null) {
+			for(ProductSubCategory productSubCategory : productCategory.getProductSubCategory()) {
+				productSubCategory.getProducts().forEach(productList::add);
+			}
+		}
+		return productList;
+	}
+
+	public Products getProductDetails(Long id) {
+		return productRepository.findOne(id);
 	}
 	
 }

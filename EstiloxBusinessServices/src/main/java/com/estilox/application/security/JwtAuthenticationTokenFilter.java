@@ -23,10 +23,11 @@ public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessi
 	public Authentication attemptAuthentication(HttpServletRequest httpServletRequest, HttpServletResponse arg1)
 			throws AuthenticationException, IOException, ServletException {
 		String header = httpServletRequest.getHeader("Authorization");
-		if(header == null || !"Token".startsWith(header)) {
+		String tokenPrefix = "Token_User_Service_Authenticate_Valid_User";
+		if(header == null || !header.startsWith(tokenPrefix)) {
 			throw new RuntimeException("JWT Token is missing.");
 		}
-		String authenticationToken = header.substring(6);
+		String authenticationToken = header.substring(tokenPrefix.length()+1);
 		JwtAuthenticationToken jwtAuthenticationToken = new JwtAuthenticationToken(authenticationToken);
 		return getAuthenticationManager().authenticate(jwtAuthenticationToken);
 	}

@@ -1,4 +1,4 @@
-package com.estilox.application.product;
+package com.estilox.application.entityModel;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,11 +16,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.estilox.application.resolver.EntityIdResolver;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
@@ -30,7 +29,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
  */
 @Entity
 @Table(name="DOC_PRODUCTS")
-@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,property="id")
+@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class,
+					property="id",resolver=EntityIdResolver.class,scope=Products.class)
 public class Products implements Serializable{
 
 	private static final long serialVersionUID = 1L;
